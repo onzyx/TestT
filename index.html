@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Tool Simple</title>
+    <style>
+        /* --- CSS Styling (Versi Gabung & Simpel + Update) --- */
+        :root{--primary-color:#0366d6;--ml-color:#3a8dff;--dl-color:#28a745;--card-bg:#fff;--body-bg:#f6f8fa;--text-color:#24292e;--text-muted:#586069;--border-color:#e1e4e8;--link-color:var(--primary-color);--error-color:#d73a49;--placeholder-color:#888;--button-bg:var(--primary-color);--button-text:#fff;--button-disabled-bg:#ccc;--button-disabled-text:#666}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";background-color:var(--body-bg);color:var(--text-color);margin:0;padding:20px;display:flex;flex-direction:column;align-items:center;min-height:100vh}.container{width:100%;max-width:700px}.header{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:5px;border-bottom:1px solid var(--border-color);padding-bottom:10px;position:relative}.header h1{margin:0;font-size:1.8em}.menu-toggle{background:0 0;border:none;font-size:1.8em;cursor:pointer;color:var(--text-muted);padding:5px 10px;line-height:1}.menu-toggle:hover{color:var(--text-color)}.menu-dropdown{display:none;position:absolute;top:100%;right:0;background-color:var(--card-bg);border:1px solid var(--border-color);border-radius:6px;box-shadow:0 4px 12px rgba(27,31,35,.15);z-index:10;min-width:180px;padding:5px 0}.menu-dropdown.active{display:block}.menu-item{display:block;padding:8px 16px;color:var(--text-color);text-decoration:none;cursor:pointer;white-space:nowrap}.menu-item:hover{background-color:#f6f8fa}.menu-item.active-feature{font-weight:700;background-color:#f0f6fc}.powered-by{text-align:center;color:var(--text-muted);font-size:.85em;margin-top:5px;margin-bottom:20px}.input-section{background-color:var(--card-bg);padding:20px;border-radius:6px;border:1px solid var(--border-color);box-shadow:0 1px 3px rgba(27,31,35,.1);margin-bottom:20px}.input-section:not(.active){display:none}.input-section>p{color:var(--text-muted);text-align:center;margin:10px 0}.input-area{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;align-items:center}.input-area label{font-size:.9em;color:var(--text-muted);flex-shrink:0;margin-right:5px}.input-area input[type=text],.input-area input[type=number]{flex-grow:1;padding:10px 12px;border:1px solid var(--border-color);border-radius:6px;font-size:1rem;min-width:100px}.fetch-button{padding:10px 16px;font-size:1rem;font-weight:600;color:var(--button-text);background-color:var(--button-bg);border:1px solid rgba(27,31,35,.15);border-radius:6px;cursor:pointer;transition:background-color .2s,filter .2s}.fetch-button.ml-button{background-color:var(--ml-color)}.fetch-button.downloader-button{background-color:var(--dl-color)}.fetch-button:hover:not(:disabled){filter:brightness(90%)}.fetch-button:disabled{background-color:var(--button-disabled-bg);color:var(--button-disabled-text);cursor:not-allowed}.ml-input-options{margin-bottom:15px}.ml-input-options strong{display:block;margin-bottom:5px}.ml-input-options label{display:block;margin-bottom:8px;margin-left:2px}.ml-input-options input[type=radio]{margin-right:5px;vertical-align:middle}#ml-separate-input-area .input-area label{flex-basis:80px;text-align:right;align-self:center;display:inline-block;margin-bottom:0}#ml-separate-input-area .input-area{margin-bottom:5px}#ml-combined-input-area:not(.active),#ml-separate-input-area:not(.active){display:none}.message-area{text-align:center;margin-bottom:15px;min-height:20px}#loading-message{color:var(--text-muted)}#error-message{color:var(--error-color);font-weight:700}#profile-output{margin-top:10px}#profile-output>p{text-align:center;color:var(--text-muted)}@keyframes fadeIn{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.ml-profile-result,.profile-card,.yt-result-card{background-color:var(--card-bg);border-radius:6px;border:1px solid var(--border-color);box-shadow:0 1px 3px rgba(27,31,35,.1);padding:20px;margin-top:10px;animation:fadeIn .5s ease-in-out}.profile-card{display:flex;gap:20px;flex-wrap:wrap}.profile-avatar img{width:100px;height:100px;border-radius:50%;border:1px solid var(--border-color)}.profile-info{flex:1;min-width:250px}.profile-info h2{margin-top:0;margin-bottom:2px;font-size:1.6em;font-weight:600}.profile-info .login-name{font-size:1.25em;color:var(--text-muted);margin-bottom:10px;display:block}.profile-info .github-link{display:inline-block;font-size:.9em;color:var(--link-color);text-decoration:none;margin-bottom:15px}.profile-info .github-link:hover{text-decoration:underline}.profile-info .bio,.profile-info .detail-item{font-size:.95em;color:var(--text-muted);margin-bottom:8px;line-height:1.5}.profile-info .detail-item strong{color:var(--text-color)}.profile-info .placeholder{color:var(--placeholder-color);font-style:italic}.profile-stats{display:flex;justify-content:space-around;text-align:center;padding:15px 0;border-top:1px solid var(--border-color);margin-top:15px;width:100%;flex-basis:100%}.stat-item{font-size:.9em;color:var(--text-muted)}.stat-item span{display:block;font-weight:600;font-size:1.4em;color:var(--text-color);margin-bottom:2px}.profile-details{margin-top:15px;font-size:.85em;color:var(--text-muted);width:100%;flex-basis:100%;border-top:1px solid var(--border-color);padding-top:15px}.profile-details p{margin:5px 0}.ml-profile-result{text-align:center}.ml-profile-result h3{margin-top:0;color:var(--ml-color)}.ml-profile-result p{font-size:1.2em;margin:8px 0;color:var(--text-color);text-align:center}.ml-profile-result p span{font-weight:600}.yt-result-card{display:flex;gap:15px;flex-wrap:wrap;align-items:flex-start}.yt-thumbnail img{width:120px;height:auto;border-radius:4px;display:block}.yt-info{flex:1;min-width:200px}.yt-info h4{margin-top:0;margin-bottom:8px;font-size:1.1em}.yt-info p{font-size:.9em;color:var(--text-muted);margin:4px 0;line-height:1.4}.yt-info .download-link a{display:inline-block;margin-top:15px;padding:10px 15px;background-color:var(--dl-color);color:#fff;text-decoration:none;border-radius:5px;font-weight:600;transition:background-color .2s}.yt-info .download-link a:hover{filter:brightness(90%)}@media (max-width:600px){.ml-profile-result,.profile-card,.yt-result-card{flex-direction:column;align-items:center;text-align:center}.profile-avatar img,.yt-thumbnail img{margin-bottom:10px}.profile-info,.yt-info{min-width:unset;width:100%}.profile-stats{justify-content:space-around}}@media (max-width:450px){.header h1{font-size:1.4em}.menu-toggle{font-size:1.4em}#ml-separate-input-area .input-area{flex-direction:column;align-items:stretch}#ml-separate-input-area .input-area label{flex-basis:auto;text-align:left;margin-bottom:3px;margin-right:0;display:block}.ml-input-options label{display:block;margin-bottom:8px}}@media (max-width:400px){.input-section .input-area{flex-direction:column;align-items:stretch}.input-section .input-area input[type=text],.input-section .input-area input[type=number],.input-section .input-area label{width:100%;box-sizing:border-box;text-align:left;margin-right:0;margin-bottom:5px}.input-section .input-area label{margin-bottom:2px}.input-section .fetch-button{width:100%}.profile-stats{flex-direction:column;gap:15px;align-items:center}}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Multi Tool</h1>
+            <button id="menu-button" class="menu-toggle" aria-label="Menu">☰</button>
+            <div id="menu-dropdown" class="menu-dropdown">
+                <a href="#" class="menu-item active-feature" id="menu-github">Stalk GitHub</a>
+                <a href="#" class="menu-item" id="menu-ml">Stalk Mobile Legends</a>
+                <a href="#" class="menu-item" id="menu-ytmp3">YT MP3 Downloader</a>
+                <a href="#" class="menu-item" id="menu-ytmp4">YT MP4 Downloader</a>
+            </div>
+        </div>
+        <p class="powered-by">Powered by api.ryzumi.vip</p>
+
+        <div id="github-input-section" class="input-section active">
+             <div class="input-area"> <input type="text" id="github-username-input" placeholder="Masukkan username GitHub..." aria-label="Username GitHub"> </div>
+             <button id="fetch-github-button" class="fetch-button">Cari Profil GitHub</button>
+        </div>
+
+        <div id="ml-input-section" class="input-section">
+             <div class="ml-input-options"> <strong>Cara Input ID:</strong><br> <input type="radio" name="ml-input-type" value="combined" id="ml-combined-radio" checked> <label for="ml-combined-radio">ID Gabung (Contoh: 12345 6789)</label> <input type="radio" name="ml-input-type" value="separate" id="ml-separate-radio"> <label for="ml-separate-radio">ID Pisah (User ID & Zone ID)</label> </div>
+             <div id="ml-combined-input-area" class="active"> <div class="input-area"> <input type="text" id="ml-combined-input" placeholder="Contoh: 729810489 (8911) atau 729810489 8911" aria-label="User ID dan Zone ID Gabungan"> </div> </div>
+             <div id="ml-separate-input-area"> <div class="input-area"> <label for="ml-user-id-input">User ID:</label> <input type="number" id="ml-user-id-input" placeholder="Masukkan User ID" aria-label="User ID Mobile Legends"> </div> <div class="input-area"> <label for="ml-zone-id-input">Zone ID:</label> <input type="number" id="ml-zone-id-input" placeholder="Masukkan Zone ID" aria-label="Zone ID Mobile Legends"> </div> </div>
+             <button id="fetch-ml-button" class="fetch-button ml-button">Cari Akun ML</button>
+        </div>
+
+        <div id="ytmp3-section" class="input-section">
+             <div class="input-area"> <input type="text" id="ytmp3-url-input" placeholder="Masukkan URL YouTube..." aria-label="URL YouTube"> </div>
+             <button id="fetch-ytmp3-button" class="fetch-button downloader-button">Download MP3</button>
+        </div>
+
+        <div id="ytmp4-section" class="input-section">
+             <div class="input-area">
+                 <label for="ytmp4-url-input">URL:</label>
+                 <input type="text" id="ytmp4-url-input" placeholder="Masukkan URL YouTube..." aria-label="URL YouTube">
+             </div>
+             <div class="input-area">
+                  <label for="ytmp4-quality-input">Kualitas:</label>
+                  <input type="number" id="ytmp4-quality-input" placeholder="Angka (Misal: 720, 1080)" aria-label="Kualitas Video (Opsional)">
+             </div>
+             <button id="fetch-ytmp4-button" class="fetch-button downloader-button">Download MP4</button>
+        </div>
+
+        <div class="message-area"> <p id="loading-message" style="display: none;">Lagi proses...</p> <p id="error-message" style="display: none;"></p> </div>
+        <div id="profile-output"> <p>Pilih fitur dari menu (☰) atau langsung gunakan Stalk GitHub.</p> </div>
+    </div>
+
+    <script>
+        // --- JavaScript Logic ---
+
+        // Ambil Elemen DOM
+        const menuButton = document.getElementById('menu-button');
+        const menuDropdown = document.getElementById('menu-dropdown');
+        const menuItems = document.querySelectorAll('#menu-dropdown .menu-item');
+        const githubSection = document.getElementById('github-input-section');
+        const mlSection = document.getElementById('ml-input-section');
+        const ytmp3Section = document.getElementById('ytmp3-section');
+        const ytmp4Section = document.getElementById('ytmp4-section');
+        const allInputSections = [githubSection, mlSection, ytmp3Section, ytmp4Section];
+
+        // Elemen input & tombol
+        const githubUsernameInput = document.getElementById('github-username-input');
+        const fetchGithubButton = document.getElementById('fetch-github-button');
+        const mlInputTypeRadios = document.querySelectorAll('input[name="ml-input-type"]');
+        const mlCombinedArea = document.getElementById('ml-combined-input-area');
+        const mlSeparateArea = document.getElementById('ml-separate-input-area');
+        const mlCombinedInput = document.getElementById('ml-combined-input');
+        const mlUserIdInput = document.getElementById('ml-user-id-input');
+        const mlZoneIdInput = document.getElementById('ml-zone-id-input');
+        const fetchMlButton = document.getElementById('fetch-ml-button');
+        const ytmp3UrlInput = document.getElementById('ytmp3-url-input');
+        const fetchYtmp3Button = document.getElementById('fetch-ytmp3-button');
+        const ytmp4UrlInput = document.getElementById('ytmp4-url-input');
+        const ytmp4QualityInput = document.getElementById('ytmp4-quality-input');
+        const fetchYtmp4Button = document.getElementById('fetch-ytmp4-button');
+        const profileOutput = document.getElementById('profile-output');
+        const loadingMessage = document.getElementById('loading-message');
+        const errorMessage = document.getElementById('error-message');
+
+        // State Aplikasi
+        let currentFeatureId = 'menu-github';
+        let canRequest = true;
+        const requestDelay = 5000;
+
+        // --- Fungsi Helper ---
+        function formatDate(isoString) { if (!isoString) return 'N/A'; try { const date = new Date(isoString); const options = { year: 'numeric', month: 'long', day: 'numeric' }; return date.toLocaleDateString('id-ID', options); } catch (e) { console.error("Error formatting date:", e); return isoString; } }
+        function showLoading(fetchButton) { loadingMessage.style.display = 'block'; errorMessage.style.display = 'none'; profileOutput.innerHTML = ''; fetchButton.disabled = true; fetchButton.textContent = 'Memuat...'; canRequest = false; }
+        function hideLoading(fetchButton, originalText) { loadingMessage.style.display = 'none'; fetchButton.textContent = 'Tunggu 5s...'; console.log("Request selesai, memulai jeda 5 detik..."); setTimeout(() => { canRequest = true; fetchButton.disabled = false; fetchButton.textContent = originalText; console.log("Jeda 5 detik selesai, siap request berikutnya."); }, requestDelay); }
+        function showError(message) { errorMessage.textContent = message; errorMessage.style.display = 'block'; profileOutput.innerHTML = ''; }
+
+        // --- Fungsi Display ---
+        function displayGithubProfile(data) { const name = data.name || `<span class="placeholder">(Nama tidak diisi)</span>`; const bio = data.bio || `<span class="placeholder">(Bio tidak diisi)</span>`; const loc = data.location ? `<p class="detail-item"><strong>Lokasi:</strong> ${data.location}</p>` : `<p class="detail-item placeholder"><strong>Lokasi:</strong> (Tidak diinfo)</p>`; const comp = data.company ? `<p class="detail-item"><strong>Perusahaan:</strong> ${data.company}</p>` : `<p class="detail-item placeholder"><strong>Perusahaan:</strong> (Tidak diinfo)</p>`; let blog = data.blog; if (blog && !blog.startsWith('http://') && !blog.startsWith('https://')) { blog = 'http://' + blog; } const blogEl = data.blog ? `<p class="detail-item"><strong>Website:</strong> <a href="${blog}" target="_blank" rel="noopener noreferrer">${data.blog}</a></p>` : `<p class="detail-item placeholder"><strong>Website:</strong> (Tidak ada)</p>`; const tw = data.twitter_username ? `<p class="detail-item"><strong>Twitter:</strong> <a href="https://twitter.com/${data.twitter_username}" target="_blank" rel="noopener noreferrer">@${data.twitter_username}</a></p>` : ''; const h = `<div class="profile-card"><div class="profile-avatar"> <img src="${data.avatar_url}" alt="Avatar ${data.login}"> </div><div class="profile-info"> <h2>${name}</h2> <span class="login-name">@${data.login}</span> <a href="${data.html_url}" target="_blank" rel="noopener noreferrer" class="github-link"> Lihat Profil di GitHub </a> <p class="bio">${bio}</p> ${loc} ${comp} ${blogEl} ${tw} </div><div class="profile-stats"> <div class="stat-item"> <span>${data.public_repos !== null ? data.public_repos : '?'}</span> Repo Publik </div> <div class="stat-item"> <span>${data.followers !== null ? data.followers : '?'}</span> Pengikut </div> <div class="stat-item"> <span>${data.following !== null ? data.following : '?'}</span> Mengikuti </div> </div><div class="profile-details"> <p><strong>ID:</strong> ${data.id || 'N/A'}</p> <p><strong>Bergabung pada:</strong> ${formatDate(data.created_at)}</p> <p><strong>Update terakhir:</strong> ${formatDate(data.updated_at)}</p> </div></div>`; profileOutput.innerHTML = h; }
+        function displayMlProfile(data) { console.log("Menampilkan profil ML:", data); const h = `<div class="ml-profile-result"> <h3>Hasil Stalk Mobile Legends</h3> <p>Username: <span>${data.username || '(Tidak Ditemukan)'}</span></p> <p>Region: <span>${data.region || 'N/A'}</span></p> <p style="font-size: 0.8em; color: var(--text-muted);">(${data.success ? 'Sukses' : 'Gagal'})</p> </div>`; profileOutput.innerHTML = h; }
+        function displayYtMp3Result(data) { console.log("Menampilkan hasil YT MP3:", data); const dur = (s) => { if (!s || typeof s !== 'number') return 'N/A'; const m = Math.floor(s / 60); const rs = s % 60; return `${m}:${rs < 10 ? '0' : ''}${rs}`; }; const h = `<div class="yt-result-card"> <div class="yt-thumbnail"> ${data.thumbnail ? `<img src="${data.thumbnail}" alt="Thumbnail">` : ''} </div> <div class="yt-info"> <h4>${data.title || 'Judul Tidak Tersedia'}</h4> <p><strong>Author:</strong> ${data.author || 'N/A'} ${data.authorUrl ? `(<a href="${data.authorUrl}" target="_blank" rel="noopener noreferrer">Channel</a>)` : ''}</p> <p><strong>Durasi:</strong> ${dur(data.lengthSeconds)}</p> <p><strong>Views:</strong> ${data.views ? data.views.toLocaleString('id-ID') : 'N/A'}</p> <p><strong>Upload:</strong> ${data.uploadDate || 'N/A'}</p> ${data.description ? `<p><strong>Deskripsi:</strong> ${data.description.substring(0, 100)}...</p>` : ''} ${data.url ? `<p class="download-link"><a href="${data.url}" download target="_blank" rel="noopener noreferrer">Download MP3 (${data.quality || 'Format tdk diketahui'})</a></p>` : '<p><strong>Link download tidak tersedia.</strong></p>'} ${data.videoUrl ? `<p><a href="${data.videoUrl}" target="_blank" rel="noopener noreferrer">Lihat Video Asli</a></p>`:''} </div> </div>`; profileOutput.innerHTML = h; }
+        function displayYtMp4Result(data) { console.log("Menampilkan hasil YT MP4:", data); const dur = (s) => { if (!s || typeof s !== 'number') return 'N/A'; const m = Math.floor(s / 60); const rs = s % 60; return `${m}:${rs < 10 ? '0' : ''}${rs}`; }; const h = `<div class="yt-result-card"> <div class="yt-thumbnail"> ${data.thumbnail ? `<img src="${data.thumbnail}" alt="Thumbnail">` : ''} </div> <div class="yt-info"> <h4>${data.title || 'Judul Tidak Tersedia'}</h4> <p><strong>Author:</strong> ${data.author || 'N/A'} ${data.authorUrl ? `(<a href="${data.authorUrl}" target="_blank" rel="noopener noreferrer">Channel</a>)` : ''}</p> <p><strong>Durasi:</strong> ${dur(data.lengthSeconds)}</p> <p><strong>Views:</strong> ${data.views ? data.views.toLocaleString('id-ID') : 'N/A'}</p> <p><strong>Upload:</strong> ${data.uploadDate || 'N/A'}</p> ${data.description ? `<p><strong>Deskripsi:</strong> ${data.description.substring(0, 100)}...</p>` : ''} ${data.url ? `<p class="download-link"><a href="${data.url}" download target="_blank" rel="noopener noreferrer">Download MP4 (${data.quality || 'Format tdk diketahui'})</a></p>` : '<p><strong>Link download tidak tersedia.</strong></p>'} ${data.videoUrl ? `<p><a href="${data.videoUrl}" target="_blank" rel="noopener noreferrer">Lihat Video Asli</a></p>`:''} </div> </div>`; profileOutput.innerHTML = h; }
+
+        // --- Fungsi Fetch API ---
+        async function fetchGithubData() { /* ... (Sama seperti sebelumnya, tidak diubah) ... */ if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } const username = githubUsernameInput.value.trim(); if (!username) { showError("Username GitHub jangan kosong!"); return; } const ori
