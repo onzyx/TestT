@@ -108,4 +108,176 @@
         function displayYtMp4Result(data) { console.log("Menampilkan hasil YT MP4:", data); const dur = (s) => { if (!s || typeof s !== 'number') return 'N/A'; const m = Math.floor(s / 60); const rs = s % 60; return `${m}:${rs < 10 ? '0' : ''}${rs}`; }; const h = `<div class="yt-result-card"> <div class="yt-thumbnail"> ${data.thumbnail ? `<img src="${data.thumbnail}" alt="Thumbnail">` : ''} </div> <div class="yt-info"> <h4>${data.title || 'Judul Tidak Tersedia'}</h4> <p><strong>Author:</strong> ${data.author || 'N/A'} ${data.authorUrl ? `(<a href="${data.authorUrl}" target="_blank" rel="noopener noreferrer">Channel</a>)` : ''}</p> <p><strong>Durasi:</strong> ${dur(data.lengthSeconds)}</p> <p><strong>Views:</strong> ${data.views ? data.views.toLocaleString('id-ID') : 'N/A'}</p> <p><strong>Upload:</strong> ${data.uploadDate || 'N/A'}</p> ${data.description ? `<p><strong>Deskripsi:</strong> ${data.description.substring(0, 100)}...</p>` : ''} ${data.url ? `<p class="download-link"><a href="${data.url}" download target="_blank" rel="noopener noreferrer">Download MP4 (${data.quality || 'Format tdk diketahui'})</a></p>` : '<p><strong>Link download tidak tersedia.</strong></p>'} ${data.videoUrl ? `<p><a href="${data.videoUrl}" target="_blank" rel="noopener noreferrer">Lihat Video Asli</a></p>`:''} </div> </div>`; profileOutput.innerHTML = h; }
 
         // --- Fungsi Fetch API ---
-        async function fetchGithubData() { /* ... (Sama seperti sebelumnya, tidak diubah) ... */ if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } const username = githubUsernameInput.value.trim(); if (!username) { showError("Username GitHub jangan kosong!"); return; } const ori
+        async function fetchGithubData() { /* ... (Sama seperti sebelumnya, tidak diubah) ... */ if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } const username = githubUsernameInput.value.trim(); if (!username) { showError("Username GitHub jangan kosong!"); return; } const originalButtonText = fetchGithubButton.textContent; showLoading(fetchGithubButton); const apiUrl = `https://api.ryzumi.vip/api/stalk/github?username=${username}`; try { const response = await fetch(apiUrl); if (!response.ok) { let e; try { e = await response.json(); } catch (t) {} let o = `Waduh, error ${response.status}!`; throw o += e && e.message ? ` Pesan: ${e.message}` : 404 === response.status ? `User "${username}" kayaknya nggak ketemu nih.` : ` Coba cek username atau API-nya lagi.`, new Error(o); } const data = await response.json(); if (!data || !data.login) throw new Error(`API ryzumi nggak ngasih data valid buat user "${username}".`); displayGithubProfile(data); } catch (error) { console.error("Gagal fetch GitHub:", error); showError(error.message || "Gagal ambil data GitHub."); } finally { hideLoading(fetchGithubButton, originalButtonText); } }
+        async function fetchMlData() { /* ... (Sama seperti sebelumnya, tidak diubah) ... */ if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } let userId, zoneId; const inputType = document.querySelector('input[name="ml-input-type"]:checked').value; if ('combined' === inputType) { const combinedValue = mlCombinedInput.value.trim(); if (!combinedValue) return void showError("Input ID Gabungan jangan kosong!"); const match = combinedValue.match(/(\d+)\s*\(?(\d+)\)?/); if (match && match[1] && match[2]) userId = match[1], zoneId = match[2]; else { const parts = combinedValue.split(/\s+/); if (2 !== parts.length || !/^\d+$/.test(parts[0]) || !/^\d+$/.test(parts[1])) return void showError("Format ID Gabungan salah. Contoh: 12345 (6789) atau 12345 6789"); userId = parts[0], zoneId = parts[1]; } } else { if (userId = mlUserIdInput.value.trim(), zoneId = mlZoneIdInput.value.trim(), !userId || !zoneId) return void showError("User ID dan Zone ID (pisah) jangan kosong!"); if (!/^\d+$/.test(userId) || !/^\d+$/.test(zoneId)) return void showError("User ID dan Zone ID harus angka!"); } console.log(`Requesting ML data for User ID: ${userId}, Zone ID: ${zoneId}`); const originalButtonText = fetchMlButton.textContent; showLoading(fetchMlButton); const apiUrl = `https://api.ryzumi.vip/api/stalk/mobile-legends?userId=${userId}&zoneId=${zoneId}`; try { const response = await fetch(apiUrl); const data = await response.json(); if (console.log("ML API Response:", data), !response.ok) { let e = `Error HTTP: ${response.status}`; throw e += data && data.message ? ` - ${data.message}` : ` - ${response.statusText||"(Status Text Kosong)"}`, new Error(e); } if (!data || !0 !== data.success) throw new Error(data.message || "Akun tidak ditemukan atau API error."); displayMlProfile(data); } catch (error) { console.error("Gagal fetch ML:", error); error instanceof SyntaxError ? showError("Gagal memproses respons dari server. Format tidak sesuai.") : showError(error.message || "Gagal ambil data Mobile Legends."); } finally { hideLoading(fetchMlButton, originalButtonText); } }
+
+        // Fungsi Fetch YT MP3 (API SUDAH DIPERBAIKI)
+        async function fetchYtMp3Data() {
+             if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; }
+             const youtubeUrl = ytmp3UrlInput.value.trim();
+             if (!youtubeUrl) { showError("URL YouTube jangan kosong!"); return; }
+             // Hapus validasi URL spesifik youtube.com jika perlu lebih fleksibel
+             // if (!youtubeUrl.includes('youtube.com/') && !youtubeUrl.includes('youtu.be/')) { showError("URL YouTube sepertinya tidak valid."); return; }
+
+             const originalButtonText = fetchYtmp3Button.textContent;
+             showLoading(fetchYtmp3Button);
+
+             // Gunakan API endpoint yang benar dan encode URL
+             const apiUrl = `https://api.ryzumi.vip/api/downloader/ytmp3?url=${encodeURIComponent(youtubeUrl)}`;
+             console.log("Memanggil API YT MP3:", apiUrl);
+
+             try {
+                 const response = await fetch(apiUrl, { headers: { 'accept': 'application/json' } });
+                 console.log("Respons dari API YT MP3:", response.status, response.statusText);
+
+                 if (!response.ok) {
+                     let errorMsg = `Gagal dari API (${response.status})`;
+                     try {
+                         const errorData = await response.json(); // Coba baca error JSON
+                         if (errorData && errorData.message) errorMsg = errorData.message;
+                         console.error("API Error Data:", errorData);
+                     } catch (eJson) {
+                         try { // Jika bukan JSON, coba baca sebagai teks
+                             const textError = await response.text();
+                             console.error("API Error Teks:", textError);
+                             // Jangan override errorMsg jika textError kosong atau hanya HTML error biasa
+                             if (textError && textError.length < 500) errorMsg += `: ${textError.substring(0,100)}`;
+                         } catch(eText){}
+                     }
+                     throw new Error(errorMsg);
+                 }
+
+                 const data = await response.json();
+                 console.log("Data dari API YT MP3:", data);
+
+                 if (data && data.url && data.title) {
+                      displayYtMp3Result(data);
+                 } else {
+                     throw new Error(data.message || "Respons API tidak sesuai format (tidak ada 'url' atau 'title').");
+                 }
+
+             } catch (error) {
+                 console.error("Gagal fetch YT MP3:", error);
+                 if (error instanceof SyntaxError) { showError("Gagal memproses respons dari API. Formatnya bukan JSON."); }
+                 else { showError(error.message || "Gagal memproses permintaan download YT MP3."); }
+             } finally {
+                 hideLoading(fetchYtmp3Button, originalButtonText);
+             }
+         }
+
+         // Fungsi Fetch YT MP4 (API SUDAH DIPERBAIKI)
+         async function fetchYtMp4Data() {
+            if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; }
+
+            const youtubeUrl = ytmp4UrlInput.value.trim();
+            let quality = ytmp4QualityInput.value.trim();
+
+            if (!youtubeUrl) { showError("URL YouTube jangan kosong!"); return; }
+            // Hapus validasi URL spesifik youtube.com jika perlu
+            // if (!youtubeUrl.includes('youtube.com/') && !youtubeUrl.includes('youtu.be/')) { showError("URL YouTube sepertinya tidak valid."); return; }
+            if (!quality) {
+                quality = '1080'; // Default quality
+                console.log("Kualitas kosong, menggunakan default:", quality);
+            } else if (!/^\d+$/.test(quality)) {
+                showError("Kualitas harus berupa angka (contoh: 720, 1080).");
+                return;
+            }
+
+            const originalButtonText = fetchYtmp4Button.textContent;
+            showLoading(fetchYtmp4Button);
+
+            // Gunakan API endpoint yang benar dan encode URL + tambah quality
+            const apiUrl = `https://api.ryzumi.vip/api/downloader/ytmp4?url=${encodeURIComponent(youtubeUrl)}&quality=${quality}`;
+            console.log("Memanggil API YT MP4:", apiUrl);
+
+            try {
+                const response = await fetch(apiUrl, { headers: { 'accept': 'application/json' } });
+                console.log("Respons dari API YT MP4:", response.status, response.statusText);
+
+                if (!response.ok) {
+                     let errorMsg = `Gagal dari API (${response.status})`;
+                     try { const errorData = await response.json(); if (errorData && errorData.message) errorMsg = errorData.message; console.error("API Error Data:", errorData); }
+                     catch (eJson) { try { const textError = await response.text(); console.error("API Error Teks:", textError); if (textError && textError.length < 500) errorMsg += `: ${textError.substring(0,100)}`; } catch(eText){} }
+                     throw new Error(errorMsg);
+                 }
+
+                 const data = await response.json();
+                 console.log("Data dari API YT MP4:", data);
+
+                 if (data && data.url && data.title) {
+                      displayYtMp4Result(data); // Panggil display MP4
+                 } else {
+                     throw new Error(data.message || "Respons API tidak sesuai format (tidak ada 'url' atau 'title').");
+                 }
+
+            } catch (error) {
+                console.error("Gagal fetch YT MP4:", error);
+                 if (error instanceof SyntaxError) { showError("Gagal memproses respons dari API MP4. Mungkin formatnya bukan JSON."); }
+                 else { showError(error.message || "Gagal memproses permintaan download YT MP4."); }
+            } finally {
+                 hideLoading(fetchYtmp4Button, originalButtonText);
+            }
+        }
+
+
+        // --- Fungsi untuk Mengelola Tampilan Fitur ---
+        function setActiveFeature(featureId) {
+            if (!featureId) return;
+            console.log("Switching feature to:", featureId);
+            currentFeatureId = featureId;
+
+            // Update Highlight Menu
+            menuItems.forEach(item => {
+                item.classList.toggle('active-feature', item.id === featureId);
+            });
+
+            // Tampilkan Section yang Sesuai
+            let sectionToShow = null;
+            if (featureId === 'menu-github') sectionToShow = githubSection;
+            else if (featureId === 'menu-ml') sectionToShow = mlSection;
+            else if (featureId === 'menu-ytmp3') sectionToShow = ytmp3Section;
+            else if (featureId === 'menu-ytmp4') sectionToShow = ytmp4Section; // <-- Kenali YTMP4
+
+            allInputSections.forEach(section => {
+                 section.classList.toggle('active', section === sectionToShow);
+            });
+
+            // Reset Output & Pesan
+            let placeholderText = "Pilih fitur dari menu.";
+            if (featureId === 'menu-github') placeholderText = "Masukkan username GitHub.";
+            else if (featureId === 'menu-ml') placeholderText = "Masukkan User ID & Zone ID Mobile Legends.";
+            else if (featureId === 'menu-ytmp3') placeholderText = "Masukkan URL YouTube untuk diunduh sebagai MP3.";
+            else if (featureId === 'menu-ytmp4') placeholderText = "Masukkan URL YouTube & Kualitas (opsional) untuk diunduh sebagai MP4.";
+
+            profileOutput.innerHTML = `<p>${placeholderText}</p>`;
+            errorMessage.style.display = 'none';
+            loadingMessage.style.display = 'none';
+
+            // Tutup dropdown menu
+            if (menuDropdown) { menuDropdown.classList.remove('active'); }
+        }
+
+        // --- Event Listeners ---
+        menuButton.addEventListener('click', (event) => { event.stopPropagation(); menuDropdown.classList.toggle('active'); });
+        document.addEventListener('click', (event) => { if (menuButton && menuDropdown && !menuButton.contains(event.target) && !menuDropdown.contains(event.target)) { menuDropdown.classList.remove('active'); } });
+        menuItems.forEach(item => { item.addEventListener('click', (event) => { event.preventDefault(); setActiveFeature(item.id); }); });
+        mlInputTypeRadios.forEach(radio => { radio.addEventListener('change', (event) => { const showCombined = event.target.value === 'combined'; mlCombinedArea.classList.toggle('active', showCombined); mlSeparateArea.classList.toggle('active', !showCombined); mlCombinedInput.value = ''; mlUserIdInput.value = ''; mlZoneIdInput.value = ''; errorMessage.style.display = 'none'; }); });
+        fetchGithubButton.addEventListener('click', fetchGithubData);
+        fetchMlButton.addEventListener('click', fetchMlData);
+        fetchYtmp3Button.addEventListener('click', fetchYtMp3Data);
+        fetchYtmp4Button.addEventListener('click', fetchYtMp4Data); // <-- Listener tombol YT MP4
+        githubUsernameInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchGithubButton.click(); });
+        mlCombinedInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchMlButton.click(); });
+        mlUserIdInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchMlButton.click(); });
+        mlZoneIdInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchMlButton.click(); });
+        ytmp3UrlInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchYtmp3Button.click(); });
+        ytmp4UrlInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchYtmp4Button.click(); });
+        ytmp4QualityInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchYtmp4Button.click(); });
+
+        // Inisialisasi tampilan awal
+        setActiveFeature(currentFeatureId);
+
+    </script>
+
+</body>
+</html>
